@@ -30,17 +30,17 @@ app.get("/ical", function (req, response) {
       return;
     }
     response.writeHead(200, {"Content-Type": "text/calendar"});
-    response.write("BEGIN:VCALENDARDo \n");
-    response.write("VERSION:2.0\n");
+    response.write("BEGIN:VCALENDAR\r\n");
+    response.write("VERSION:2.0\r\n");
     body.forEach(function (entity) {
-      response.write("BEGIN:VEVENT\n");
-      response.write(`UID:${entity.uid}\n`);
-      response.write(`SUMMARY:${entity.summary}\n`);
-      response.write(`DTSTART:${formatIcal(entity.start)}\n`);
-      response.write(`DTEND:${formatIcal(entity.end)}\n`);
-      response.write("END:VEVENT\n");
+      response.write("BEGIN:VEVENT\r\n");
+      response.write(`UID:${entity.uid}\r\n`);
+      response.write(`SUMMARY:${entity.summary}\r\n`);
+      response.write(`DTSTART:${formatIcal(entity.start)}\r\n`);
+      response.write(`DTEND:${formatIcal(entity.end)}\r\n`);
+      response.write("END:VEVENT\r\n");
     });
-    response.end("END:VCALENDAR\n");
+    response.end("END:VCALENDAR\r\n");
   });
 });
 
