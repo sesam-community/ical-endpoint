@@ -12,7 +12,7 @@ var app = express();
 app.use(morgan('tiny'));
 
 function formatIcal(transitDate) {
-  return moment(new Date(transitDate.slice(2))).utc().format('YYYYMMDDTHHmmss') + 'Z';
+  return moment(new Date(transitDate.slice(2))).format('YYYYMMDD');
 }
 
 // Configure router to respond with a list of entities to /entities
@@ -36,8 +36,8 @@ app.get("/ical", function (req, response) {
       response.write("BEGIN:VEVENT\r\n");
       response.write(`UID:${entity.uid}\r\n`);
       response.write(`SUMMARY:${entity.summary}\r\n`);
-      response.write(`DTSTART:${formatIcal(entity.start)}\r\n`);
-      response.write(`DTEND:${formatIcal(entity.end)}\r\n`);
+      response.write(`DTSTART;VALUE=DATE:${formatIcal(entity.start)}\r\n`);
+      response.write(`DTEND;VALUE=DATE:${formatIcal(entity.end)}\r\n`);
       response.write("END:VEVENT\r\n");
     });
     response.end("END:VCALENDAR\r\n");
